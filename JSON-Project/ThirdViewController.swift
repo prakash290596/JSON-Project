@@ -7,15 +7,31 @@
 //
 
 import UIKit
-
+import GooglePlaces
+import GoogleMaps
 class ThirdViewController: UIViewController {
+    
+    
+     override func viewDidLoad() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        let lat = Double(appDelegate.globallatitude!)
+        let long = Double(appDelegate.globallongitude!)
+        let camera = GMSCameraPosition.camera(withLatitude: lat!, longitude:   long!, zoom: 6.0)
+        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        view = mapView
+        
+//        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 13.003387, longitude:     80.255043)
+//        marker.title = "Adayar"
+//        marker.snippet = "CHENNAI"
+        marker.map = mapView
+        
+        
 
-        // Do any additional setup after loading the view.
     }
-
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

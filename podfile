@@ -1,0 +1,4 @@
+target 'JSON-Project' do
+  pod 'GoogleMaps', '~> 3.1'
+pod 'GooglePlaces', '~> 3.1'
+end

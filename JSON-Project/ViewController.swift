@@ -69,6 +69,8 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "gotosecond", sender: self)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.globalstring = String(indexPath.row)
     }
     
     override func didReceiveMemoryWarning() {

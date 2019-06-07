@@ -17,7 +17,7 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid2", for: indexPath) as! CollectionViewCell
-        let imgurl = URL(string: photos [indexPath.item])
+        let imgurl = URL(string: photodata[indexPath.row])
         let imgdata = try?Data(contentsOf: imgurl!)
         cell.photos.image = UIImage(data: imgdata!)
         return cell
@@ -26,12 +26,22 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "gotoimage", sender: self)
+         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.globalimage = photodata[indexPath.row]
+         appDelegate.globallatitude = String(maplat[0])
+         appDelegate.globallongitude = String(maplon[0])
+    }
     var linkkey = "https://www.myprivatedeal.com/API/getDeals.php?key=jcjn79b8f043f4y74yh48ug984u"
-    var photos = [String] ()
-  
-    
+    var photos = [NSArray] ()
+    var photodata = [String]()
+   let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var maplon = [String]()
+     var maplat = [String]()
     override func viewDidLoad() {
         let url = URL(string: linkkey)
+        let index = Int(appDelegate.globalstring!)
         URLSession.shared.dataTask(with: url!) {(data,response, error) in
             if error != nil
             {
@@ -47,8 +57,15 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
                         {
                             if let path = arr as?[String: Any]
                             {
-                               self.photos.append(path["cat_icon"] as! String)
+                               self.photos.append(path["photo"] as! NSArray)
+                                 self.maplat.append(path["latitude"] as! String)
+                                 self.maplon.append(path["longitude"] as! String)
                             }
+                            
+                        }
+                        for data in self.photos[index!]
+                        {
+                            self.photodata.append(data as! String)
                         }
                         DispatchQueue.main.async {
                             self.collectonview.reloadData()
@@ -61,8 +78,11 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
             }.resume()}
 //
 
+    @IBAction func gotomap(_ sender: Any) {
+        self.performSegue(withIdentifier: "gotomap", sender: self)
+    }
+    
   
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
