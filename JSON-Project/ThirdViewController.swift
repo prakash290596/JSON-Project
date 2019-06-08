@@ -20,7 +20,7 @@ class ThirdViewController: UIViewController {
         let camera = GMSCameraPosition.camera(withLatitude: lat!, longitude:   long!, zoom: 6.0)
         let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         view = mapView
-        
+       
 //        // Creates a marker in the center of the map.
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: lat!, longitude:     long!)
