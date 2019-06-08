@@ -24,7 +24,7 @@ class ThirdViewController: UIViewController {
 //        // Creates a marker in the center of the map.
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: lat!, longitude:     long!)
-//        marker.title = "Adayar"
+        marker.title = appDelegate.globaltitle
 //        marker.snippet = "CHENNAI"
         marker.map = mapView
         

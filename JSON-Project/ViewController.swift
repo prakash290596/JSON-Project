@@ -31,7 +31,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     var name = [String] ()
     var titles = [String] ()
     var img = [String] ()
-    
+    var maplon = [String]()
+    var maplat = [String]()
+    var maptitle = [String]()
     override func viewDidLoad() {
         let url = URL(string: linkkey)
         URLSession.shared.dataTask(with: url!) {(data,response, error) in
@@ -53,6 +55,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                                 self.name.append(path["id_deal"] as! String)
                                 self.titles.append(path["title"] as! String)
                                 self.img.append(path["cat_icon"] as! String)
+                                self.maplat.append(path["latitude"] as! String)
+                                self.maplon.append(path["longitude"] as! String)
+                                self.maptitle.append(path["store_title"] as! String)
                             }
                         }
                         DispatchQueue.main.async {
@@ -71,6 +76,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         self.performSegue(withIdentifier: "gotosecond", sender: self)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.globalstring = String(indexPath.row)
+        appDelegate.globallatitude = String(maplat[indexPath.row])
+        appDelegate.globallongitude = String(maplon[indexPath.row])
+        appDelegate.globaltitle = maptitle[indexPath.row]
     }
     
     override func didReceiveMemoryWarning() {

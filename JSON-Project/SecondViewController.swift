@@ -30,15 +30,13 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
         performSegue(withIdentifier: "gotoimage", sender: self)
          let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.globalimage = photodata[indexPath.row]
-         appDelegate.globallatitude = String(maplat[0])
-         appDelegate.globallongitude = String(maplon[0])
+  
     }
     var linkkey = "https://www.myprivatedeal.com/API/getDeals.php?key=jcjn79b8f043f4y74yh48ug984u"
     var photos = [NSArray] ()
     var photodata = [String]()
    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var maplon = [String]()
-     var maplat = [String]()
+ 
     override func viewDidLoad() {
         let url = URL(string: linkkey)
         let index = Int(appDelegate.globalstring!)
@@ -58,8 +56,7 @@ class SecondViewController: UIViewController,UICollectionViewDataSource,UICollec
                             if let path = arr as?[String: Any]
                             {
                                self.photos.append(path["photo"] as! NSArray)
-                                 self.maplat.append(path["latitude"] as! String)
-                                 self.maplon.append(path["longitude"] as! String)
+                                 
                             }
                             
                         }
